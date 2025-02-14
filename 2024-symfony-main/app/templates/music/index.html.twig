@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}YouMusic{% endblock %}
+
+{% block body %}
+
+    <ul>
+        {% for music in musicsList %}
+           <li>{{ music.name }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
