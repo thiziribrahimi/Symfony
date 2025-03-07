@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 final class MusicController extends AbstractController
 {
-    #[Route('/', name: 'app_music')]
+    #[Route('/', name: 'app_music')] 
     public function index(
          MusicRepository $musicRepo
     ): Response
