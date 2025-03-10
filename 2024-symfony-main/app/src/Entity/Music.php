@@ -5,8 +5,9 @@ namespace App\Entity;
 use App\Repository\MusicRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-#[ORM\HasLifecycleCallbacks]
+
 #[ORM\Entity(repositoryClass: MusicRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Music
 {
     #[ORM\Id]
@@ -34,10 +35,10 @@ class Music
     #[ORM\PrePersist]
     public function setTimestampsValue(): void
     {
-        if($this->createdAt == null){
+        if ($this->createdAt == null) {
             $this->createdAt = new \DateTimeImmutable();
         }
-         $this->updatedAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -68,7 +69,6 @@ class Music
 
         return $this;
     }
-
 
     public function getCreatedAt(): ?\DateTimeImmutable
     {

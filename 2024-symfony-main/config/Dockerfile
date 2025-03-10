@@ -27,4 +27,10 @@ RUN docker-php-ext-install pdo pdo_mysql opcache intl zip exif calendar dom mbst
 
 WORKDIR /var/www/
 
+# Activer mod_rewrite pour Symfony
+RUN a2enmod rewrite
+
+# Donner les bons droits aux fichiers montés avec Docker
+RUN chown -R www-data:www-data /var/www && chmod -R 755 /var/www
+
 RUN git config --global user.email "ldandoy@overconsulting.net" && git config --global user.name "Loïc DANDOY"
