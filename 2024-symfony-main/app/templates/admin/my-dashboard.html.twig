@@ -1,6 +1,9 @@
-{# templates/admin/my_dashboard.html.twig #}
-{% extends '@EasyAdmin/layout.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block main %}
-    Welcome to Music Dashboard
-{% endblock main %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block body %}
+    <h1>Welcome to the Admin Dashboard</h1>
+
+    <a href="{{ path('app_music') }}">Go to Music Management</a>
+{% endblock %}

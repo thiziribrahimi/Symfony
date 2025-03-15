@@ -32,12 +32,22 @@ class Music
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $author = null;
 
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'musics')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $category = null;
+
     #[ORM\PrePersist]
     public function setTimestampsValue(): void
     {
-        if ($this->createdAt == null) {
+        if ($this->createdAt === null) {
             $this->createdAt = new \DateTimeImmutable();
         }
+        $this->updatedAt = new \DateTimeImmutable();
+    }
+
+    #[ORM\PreUpdate]
+    public function updateTimestamps(): void
+    {
         $this->updatedAt = new \DateTimeImmutable();
     }
 
@@ -102,6 +112,18 @@ class Music
     public function setAuthor(?string $author): static
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }
