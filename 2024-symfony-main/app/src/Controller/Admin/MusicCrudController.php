@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 
 class MusicCrudController extends AbstractCrudController
 {
@@ -24,6 +25,7 @@ class MusicCrudController extends AbstractCrudController
             TextField::new('name'),
             TextField::new('url'),
             TextField::new('author'),
+            AssociationField::new('category'),
             DateField::new('createdAt')->hideOnForm(),
             DateField::new('updatedAt')->hideOnForm(),
         ];
