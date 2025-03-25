@@ -21,11 +21,11 @@ class Category
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-   /* #[ORM\Column]
+    #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $updatedAt = null;*/
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\PrePersist]
     public function setTimestampsValue(): void
@@ -35,7 +35,6 @@ class Category
         }
         $this->updatedAt = new \DateTimeImmutable();
     }
-
 
     public function getId(): ?int
     {
@@ -50,7 +49,6 @@ class Category
     public function setName(string $name): static
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -62,24 +60,17 @@ class Category
     public function setDescription(string $description): static
     {
         $this->description = $description;
-
         return $this;
     }
 
-
-    public function __toString(): string {
-        return $this->name;
-    }
-
-   /* public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    public function setCreatedAt(?\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -88,12 +79,14 @@ class Category
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
-
         return $this;
-    }*/
+    }
 
-    
+    public function __toString(): string
+    {
+        return $this->name;
+    }
 }

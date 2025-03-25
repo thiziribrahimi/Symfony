@@ -1,9 +1,81 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Admin Dashboard{% endblock %}
+{% block title %}Music Dashboard{% endblock %}
 
 {% block body %}
-    <h1>Welcome to the Admin Dashboard</h1>
+<div class="d-flex min-vh-100">
+    <!-- Sidebar -->
+    <div class="bg-dark text-white p-4" style="width: 250px;">
+        <h4 class="mb-4">🎶 Music Dashboard</h4>
+        <ul class="nav flex-column">
+            <li class="nav-item mb-2">
+                <a class="nav-link text-white {% if app.request.get('_route') == 'admin_dashboard' %}bg-primary rounded{% endif %}" href="{{ path('admin_dashboard') }}">
+                    🏠 Dashboard
+                </a>
+            </li>
+            <li class="nav-item mb-2">
+                <a class="nav-link text-white {% if app.request.get('_route') starts with 'app_music' %}bg-primary rounded{% endif %}" href="{{ path('app_music') }}">
+                    🎵 Music
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white {% if app.request.get('_route') starts with 'app_category' %}bg-primary rounded{% endif %}" href="{{ path('app_category_crud_index') }}">
+                    📁 Catégories
+                </a>
+            </li>
+        </ul>
+    </div>
 
-    <a href="{{ path('app_music') }}">Go to Music Management</a>
+    <!-- Main Content -->
+    <div class="flex-grow-1 p-5 bg-light">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold">🎼 Gestion des morceaux</h2>
+            <a href="{{ path('app_music_crud_new') }}" class="btn btn-success shadow-sm">
+                ➕ Ajouter un morceau
+            </a>
+        </div>
+
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-0">
+                <table class="table table-hover table-striped mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">URL</th>
+                            <th scope="col">Auteur</th>
+                            <th scope="col">Catégorie</th>
+                            <th scope="col">Créé le</th>
+                            <th scope="col">Mis à jour</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for music in musics %}
+                            <tr>
+                                <td>{{ music.id }}</td>
+                                <td>{{ music.name }}</td>
+                                <td><a href="{{ music.url }}" target="_blank">{{ music.url }}</a></td>
+                                <td>{{ music.author }}</td>
+                                <td>
+                                    <span class="badge bg-info text-dark">{{ music.category.name }}</span>
+                                </td>
+                                <td>{{ music.createdAt|date('M d, Y') }}</td>
+                                <td>{{ music.updatedAt|date('M d, Y') }}</td>
+                                <td>
+                                    <a href="{{ path('app_music_crud_edit', {id: music.id}) }}" class="btn btn-sm btn-warning">✏️</a>
+                                    <a href="{{ path('app_music_crud_delete', {id: music.id}) }}" class="btn btn-sm btn-danger">🗑️</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="8" class="text-center text-muted">Aucun morceau trouvé.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

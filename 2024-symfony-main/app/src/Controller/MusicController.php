@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Music;
 use App\Form\MusicType;
+use App\Repository\MusicRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,9 +35,9 @@ class MusicController extends AbstractController
     }
 
     #[Route('/', name: 'app_music')]
-    public function index(): Response
+    public function index(MusicRepository $musicRepository): Response
     {
-        $musics = $this->getDoctrine()->getRepository(Music::class)->findAll();
+        $musics = $musicRepository->findAll();
 
         return $this->render('music/index.html.twig', [
             'musicsList' => $musics,

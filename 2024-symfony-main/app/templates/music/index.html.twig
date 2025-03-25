@@ -3,13 +3,54 @@
 {% block title %}YouMusic !{% endblock %}
 
 {% block body %}
-    <h1>Liste des musiques disponibles</h1>
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="fw-bold text-primary">🎶 Liste des musiques disponibles</h1>
+        <a href="{{ path('app_music_new') }}" class="btn btn-success">
+            ➕ Ajouter une musique
+        </a>
+    </div>
 
-    <a href="{{ path('app_music_new') }}">Ajouter une musique</a>
+    {% if musicsList is empty %}
+        <div class="alert alert-info text-center">
+            Aucune musique enregistrée pour le moment.
+        </div>
+    {% else %}
+        <div class="row">
+            {% for music in musicsList %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title text-dark">{{ music.name }}</h5>
 
-    <ul>
-        {% for music in musicsList %}
-            <li>{{ music.name }} - {{ music.author }}</li>
-        {% endfor %}
-    </ul>
+                            <p class="card-text mb-1">
+                                <strong>Auteur :</strong> {{ music.author }}
+                            </p>
+
+                            <p class="card-text mb-1">
+                                <strong>URL :</strong>
+                                <a href="{{ music.url }}" target="_blank">{{ music.url }}</a>
+                            </p>
+
+                            {% if music.category %}
+                                <p class="card-text mb-0">
+                                    <strong>Catégorie :</strong>
+                                    <span class="badge bg-info text-dark">
+                                        {{ music.category.name }}
+                                    </span>
+                                </p>
+                            {% else %}
+                                <p class="text-muted"><em>Pas de catégorie</em></p>
+                            {% endif %}
+                        </div>
+
+                        <div class="card-footer bg-transparent text-end">
+                            <!-- Boutons à rajouter plus tard (edit/delete) -->
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
 {% endblock %}

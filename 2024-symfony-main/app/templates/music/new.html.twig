@@ -3,15 +3,52 @@
 {% block title %}Ajouter une musique{% endblock %}
 
 {% block body %}
-    <h1>Ajouter une nouvelle musique</h1>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white text-center fw-bold">
+                    🎵 Ajouter une nouvelle musique
+                </div>
+                <div class="card-body bg-light">
+                    {{ form_start(form) }}
 
-    {{ form_start(form) }}
-        {{ form_row(form.name) }}
-        {{ form_row(form.url) }}
-        {{ form_row(form.author) }}
-        {{ form_row(form.category) }}
-        {{ form_row(form.save) }}
-    {{ form_end(form) }}
+                    <div class="mb-3">
+                        {{ form_label(form.name, 'Nom de la musique', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.name) }}
+                    </div>
 
-    <a href="{{ path('app_music') }}">Retour</a>
+                    <div class="mb-3">
+                        {{ form_label(form.url, 'URL du fichier audio', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.url, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.url) }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form_label(form.author, 'Auteur', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.author, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.author) }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form_label(form.category, 'Catégorie', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.category, {'attr': {'class': 'form-select'}}) }}
+                        {{ form_errors(form.category) }}
+                    </div>
+
+                    <div class="text-center">
+                        <button class="btn btn-success w-100">➕ Ajouter la musique</button>
+                    </div>
+
+                    {{ form_end(form) }}
+                </div>
+            </div>
+
+            <div class="text-center mt-3">
+                <a href="{{ path('app_music') }}" class="btn btn-link">← Retour</a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
